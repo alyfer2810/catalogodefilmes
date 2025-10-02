@@ -49,3 +49,28 @@
    //------------------------------------------------------------------------------------------
    // FUNÇÃO DE REMOÇÃO
    //------------------------------------------------------------------------------------------
+   /**
+    * Remove um filme do array de dados e do elemento HTML na tela.
+    * @param {number} indice - A posição do filme no array 'catalogo'.
+    * @param {HTMLElement} elementoDOM - O elemento <div> do filme a ser removido da tela.*/
+function removerFilme(indice, elementoDOM) {
+    // 1. REMOÇÃO DO ARRAY (Lógica de Dados)
+    // splice(indice, 1) remove 1 elemento a partir da posição 'indice'.
+    // Isso atualiza o array 'catalogo'.
+    catalogo.splice(indice, 1);
+    // B. REMOÇÃO DO DOM (Visual)
+    // o metodo.remove() retira o elemento HTML da visualização do usuario.
+
+   elementoDOM.remove();
+   
+// Opcional: Atualiza a mensagem da lista se estiver vazia
+if (catalogo.length === 0) {
+listaFilmesContainer.innerHTML = '<p>Nenhum filme cadastrado ainda.</p>';
+}
+console.log("Filme no indice (indice) removido. Catalogo atualizado: catalogo);
+}
+// FUNÇÃO DE RENDERIZAÇÃO
+*
+Cria e exibe a estrutura HTML de um filme na lista.
+@param (Object) filme O objeto (titulo, sinopse) do filme.
+@param {number} indice 0 indice atual do filme no array 'catalogo'.
