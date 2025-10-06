@@ -1,76 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Catálogo de Filmes Fase 1: Cadastro Manual (DOM Básico)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Filmes Fase 1: Cadastro Manual (COM Básico)</title>
 
-     <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>    
+<body>
 
     <h1>Catálogo de Filmes</h1>
 
     <form id="cadastro-filme">
-    <h2>Adicionar Novo Filme</h2>
-    <div>
-        <label for="titulo">Título do Filme: </label>
-        <input type="text" id="titulo" required>
+          <h2>Adicionar Novo Filme</h2>
+          <div>
+          <label for="titulo">Título do Filme:</label>
+          <input type="text" id="titulo" required>
+          </div>
+
+          <div>
+            <label for="sinopse">Sinopse</label>
+            <textarea id="sinopse" require></textarea>
+          </div>
+
+          <button type="submit">Adicionar Filme</button>
+        </form>
+
+        <hr>
+
+        <h2>Minha Lista de Filmes</h2>
+
+        <div id="lista-filmes">
+            <p>Nenhum filme cadastrado ainda</p>
         </div>
 
-        <div>
-        <label for="sinopse">Sinopse:</label>
-        <textarea id="sinopse" required></textarea>
-        </div>
+        <script>
+            const catalogo = [];
 
-        <button type="submit">Adicionar Filme</button>
-</form>
+            const form = document.getElementById('cadastro-filme');
+            const listaFilmesContainer = document.getElementById('lista-filmes');
 
-<hr>
+            function removerFilme(indice, elementoDOM){
 
-<h2>Minha Lista de Filmes</h2>
+                catalogo.splice(indice, 1);
 
-<div id="lista-filmes">
-     <p>Nenhum filme cadastrado ainda.</p>
-</div>
+                elementDOM.remove();
 
-<script>
-    // 1. ARMAZENAMENTO DE DADOS
-    // Array global que irá guardar todos os filmes como Objetos.
-    // Ex: [{ titulo: 'Filme X', sinopse: 'Sinopse Y' }]
-    const catalogo = [];
+                if (catalogo.length === 0) {
+                    listaFilmesContainer.innerHTML = '<p>Nenhum filme cadastrado ainda.</P>';
+                }
 
-   // 2. CAPTURA DE ELEMENTOS DO DOM (Document Object Model)
-   // Capturamos os elementos HTML que vamos interagir, usando seus IDs.
-   const form = document.getElementById('cadastro-filme');
-   const listaFilmes Container document.getElementById('lista-filmes');
+                console.log(`Filme no índice ${indice} removido. Catálogo atualizado:`, catalogo);
+            }
 
-   //------------------------------------------------------------------------------------------
-   // FUNÇÃO DE REMOÇÃO
-   //------------------------------------------------------------------------------------------
-   /**
-    * Remove um filme do array de dados e do elemento HTML na tela.
-    * @param {number} indice - A posição do filme no array 'catalogo'.
-    * @param {HTMLElement} elementoDOM - O elemento <div> do filme a ser removido da tela.*/
-function removerFilme(indice, elementoDOM) {
-    // 1. REMOÇÃO DO ARRAY (Lógica de Dados)
-    // splice(indice, 1) remove 1 elemento a partir da posição 'indice'.
-    // Isso atualiza o array 'catalogo'.
-    catalogo.splice(indice, 1);
-    // B. REMOÇÃO DO DOM (Visual)
-    // o metodo.remove() retira o elemento HTML da visualização do usuario.
+            function rederizarFilme(filme, indice){
 
-   elementoDOM.remove();
-   
-// Opcional: Atualiza a mensagem da lista se estiver vazia
-if (catalogo.length === 0) {
-listaFilmesContainer.innerHTML = '<p>Nenhum filme cadastrado ainda.</p>';
-}
-console.log("Filme no indice (indice) removido. Catalogo atualizado: catalogo);
-}
-// FUNÇÃO DE RENDERIZAÇÃO
-*
-Cria e exibe a estrutura HTML de um filme na lista.
-@param (Object) filme O objeto (titulo, sinopse) do filme.
-@param {number} indice 0 indice atual do filme no array 'catalogo'.
+                if (catalogo.length === 1) {
+                    listaFilmesContainer.innerHTML = '';
+                }
+
+                const filmeDiv = document.createElement('div');
+                filmeDiv.classList.add('filme-item');
+
+                const tituloH3 = document.createElement('h3');
+                tituloH3.textContent = filme.titulo;
+
+                const sinopseP = document.createElement('p');
+                sinopseP.textContent = filme.sinopse;
+            }
+            //cria botao de remoçao
+            const removerBotao = createElement('button')
+            removerBotao.textContent = 'remover';
+            removerBotao.classList.add('btn-remover');
+
+                removerBotao.addEventlistener('click' () => {
+                    removerFilme(indice,FilmeDiv);
+                })
+
+
+FilmeDiv.appendChild(tituloh3);
+FilmeDiv.appendChild(sinopseP);
+FilmeDiv.appendChild(removerBotao);
+
+listaFilmesContainer.appendChild(filmeDiv);
