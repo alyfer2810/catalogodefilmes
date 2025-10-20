@@ -33,10 +33,16 @@
         // 1. ARMAZENAMENTO DE DADOS
         const catalogo = JSON.parse(localStorage.getItem('catalogoFilmes')) || [];
 
+
         // 2. CAPTURA DE ELEMENTOS DO DOM (Document Object Model)
         const form = document.getElementById('cadastro-filme');
         const tituloInput = document.getElementById('titulo');
         const listaFilmesContainer = document.getElementById('lista-filmes');
+
+        //salvar 
+        function salvarCatalogo() {
+            localStorage.setItem('catalogo', JSON.stringify(catalogo));
+        }
 
         //------------------------------------------------------------------------------------------
         // FUNÇÃO DE REMOÇÃO (mantida da fase 1)
@@ -45,7 +51,6 @@
         function removerFilme(indice, elementoDOM) {
             catalogo.splice(indice, 1);
             elementoDOM.remove();
-
             if (catalogo.length === 0) {
                 listaFilmesContainer.innerHTML = '<p>Nenhum filme cadastrado ainda.</p>';
             }
@@ -61,7 +66,6 @@
             if (catalogo.length === 1) {
                 listaFilmesContainer.innerHTML = '';
             }
-
             const filmeDiv = document.createElement('div');
             filmeDiv.classList.add('filme-item');
 
