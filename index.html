@@ -116,7 +116,7 @@
             if (!titulo) return; // Se não houver título, não prossegue
 
             const tituloFormatado = encodeURIComponent(titulo);
-            const url = `https://www.omdbapi.com/?apikey=${API_KEY}&t=${tituloFormatado}`;
+            const url = `https://www.omdbapi.com/?apikey=${API_KEY}&t=${encodeURIComponent(titulo)}&lang=pt`;
 
             try {
                 const resposta = await fetch(url);
