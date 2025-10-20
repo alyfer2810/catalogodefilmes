@@ -143,6 +143,13 @@
             form.reset();
         }
 
+        function carregarcatalogo() {
+            if (catalogo.length > 0){
+                listaFilmesContainer.innerHTML = '';
+                catalogo.forEach((filme, i) => renderizarFilme (filme, i));
+            }
+        }
+        
         // 8. ESCUTANDO O EVENTO DO BOTÃO/FORMULARIO
         form.addEventListener('submit', adicionarFilme);
         carregarcatalogo();
