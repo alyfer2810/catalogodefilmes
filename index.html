@@ -94,9 +94,8 @@
             // C. Evento de remoção
             removerBotao.addEventListener('click', () => {
                 const indiceAtual = catalogo.findIndex(f => f.titulo === filme.titulo);
-                if (indiceAtual > -1) {
-                    removerFilme(indice, filmeDiv);
-                }
+                if (indiceAtual > -1)   removerFilme(indice, filmeDiv);
+                
             });
 
             // D. montagem do DOM
