@@ -28,7 +28,7 @@
     </div>
 
     <script>
-        const API_KEY = 'f55f96f2'; 
+        const API_KEY = 'f55f96f2';
 
         // 1. ARMAZENAMENTO DE DADOS
         const catalogo = JSON.parse(localStorage.getItem('catalogoFilme')) || [];
@@ -61,7 +61,7 @@
             const imagemPoster = document.createElement('img');
             imagemPoster.src = filme.poster && filme.poster !== 'N/A'
                 ? filme.poster
-                : 'https://via.placeholder.com/100x150?text=Poster+Indisponível';
+                : 'https://via.placeholder.com/100x150?text=Poster+não+Disponível';
             imagemPoster.alt = `Poster do filme ${filme.titulo}`;
             imagemPoster.classList.add('filme-poster');
 
@@ -74,6 +74,18 @@
             const sinopseP = document.createElement('p');
             sinopseP.textContent = filme.sinopse || 'Sinopse não disponível.';
 
+// NOVO: Link para o Trailer no YouTube
+const trailerLink = document.createElement('a'); 
+const termoBusca = encodeURIComponent(' ${filme.titulo} trailer oficial');
+trailerLink.href = `https://www.youtube.com/results?search_query=${termoBusca}`; 
+trailerLink.target = '_blank'; 
+trailerLink.textContent = '▶️ Ver Trailer (YouTube)'; 
+trailerLink.classList.add('btn-trailer'); 
+
+
+
+
+
             const removerBotao = document.createElement('button');
             removerBotao.textContent = 'Remover';
             removerBotao.classList.add('btn-remover');
@@ -85,6 +97,7 @@
 
             infoDiv.appendChild(tituloH3);
             infoDiv.appendChild(sinopseP);
+             infoDiv.appendChild(trailerLink);
             infoDiv.appendChild(removerBotao);
 
             filmeDiv.appendChild(imagemPoster);
@@ -108,10 +121,20 @@
                 const dadosdoFilme = await resposta.json();
 
                 if (dadosdoFilme.Response === "True") {
-                    const novoFilme = {
+                  
+    if (catalogo.some(f => f.titulo === dadosDoFilme.Title)) {
+        // Correção: Adicionado `alert(` e usado Template String (backticks ``)
+        alert(`O filme "${dadosDoFilme.Title}" já está no seu catálogo.`); 
+        form.reset();
+        return;
+
+ const novoFilme = {
                         titulo: dadosdoFilme.Title,
                         sinopse: dadosdoFilme.Plot || sinopseManual || 'Sinopse não disponível.',
                         poster: dadosdoFilme.Poster,
+                    };
+
+
                     };
 
                     catalogo.push(novoFilme);
@@ -121,7 +144,7 @@
                     alert(`Filme não encontrado na OMDB: "${titulo}".`);
                 }
             } catch (error) {
-                alert('Erro ao buscar filme na API.');
+                alert('Erro ao buscar filme na API. Verifique sua conexão ou chave de API');
                 console.error('Erro:', error);
             }
 
